@@ -1,0 +1,10 @@
+<ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+  <li *ngFor="let company of companies">
+    <div class="collapsible-header">{{ company.name }} </div>
+    <div class="collapsible-body">
+      <p><b>Detalles de {{ company.name}}</b></p><br>
+      <span><b>ID: {{ company.id }} </b></span><br>
+      <span><b>Dirección: </b></span> {{ company.address }}
+    </div>
+  </li>
+</ul>
