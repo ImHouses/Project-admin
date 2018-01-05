@@ -1,0 +1,54 @@
+<form materialize class="col s12" *ngIf="isFormShow" #projectForm="ngForm">
+  <h4> {{ title }}</h4>
+  <div class="row">
+    <div class="input-field col s6">
+      <input [(ngModel)]="project.name" minlength="5" name="name" id="name" type="text" class="validate" required>
+      <label for="name" data-error="Nombre inválido">Nombre</label>
+    </div>
+    <div class="input-field col s6">
+      <input [(ngModel)]="project.id" name="project_id" id="project_id" type="number" class="validate" required>
+      <label for="project_id" data-error="Número de contrato inválido, debe de ser un número.">Id del contrato</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s6">
+      <label>Fecha de inicio</label>      
+    </div>
+    <div class="col s6">
+      <label>Fecha de fin</label>      
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <input [(ngModel)]="project.initDate" name="project_init_date" id="project_init_date" type="date" class="validate" required>
+    </div>
+    <div class="input-field col s6">
+      <input [(ngModel)]="project.endDate" name="project_end_date" id="project_end_date" type="date" class="validate" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <h5>Datos de la empresa</h5>
+      <p>Selecciona la empresa.</p>
+    </div>
+  </div>
+  <div class="row">
+      <div class="input-field col s12">
+          <select [(ngModel)]="currentCompany" name="company_selector" materialize="material_select">
+            <option *ngFor="let company of companies" [ngValue]="company"> {{ company.name }} </option>
+          </select>
+          <label>Selecciona una empresa</label>
+        </div>
+  </div>
+  <div class="row">
+    <div class="col s6">
+      <div class="btn waves-effect waves-light" (click)="hideForm()">Cancelar
+      </div>
+    </div>
+    <div class="col s6">
+      <button class="btn waves-effect waves-light" [disabled]="!projectForm.form.valid" (click)="onSubmit()" type="submit" name="action">Enviar información
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</form>
