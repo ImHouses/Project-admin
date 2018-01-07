@@ -12,7 +12,7 @@ const connection = (closure) => {
     return MongoClient.connect('mongodb://localhost:27017', (err, client) => {
         if (err) return console.log(err);
 
-        closure(client.db('mean'));
+        closure(client.db('admin_test'));
     });
 };
 
@@ -36,7 +36,7 @@ router.get('/companies', (req, res) => {
         db.collection('companies')
             .aggregate([ 
                 {'$lookup': 
-                    {"from": 'projects', "localField": 'id', "foreignField": 'company', "as": 'companyProjects'} 
+                    {"from": 'projects', "localField": '_id', "foreignField": 'companyId', "as": 'companyProjects'} 
                 }
             ])
             .toArray((err, r) => {
@@ -56,7 +56,7 @@ router.get('/projects', (req, res) => {
         db.collection('projects')
             .aggregate([
                 {'$lookup':
-                    {"from": 'companies', "localField": 'company', "foreignField": 'id', "as": 'projectCompany'}
+                    {"from": 'companies', "localField": 'companyId', "foreignField": '_id', "as": 'projectCompany'}
             }
             ])
             .toArray((err, r) => {
@@ -88,13 +88,13 @@ router.post('/projects', (req, res) => {
 /* PUT project. */
 router.put('/projects/:projectId', (req, res) => {
     const body = req.body;
-    const query = {id: parseInt(req.params.projectId)}
+    const query = {_id: parseInt(req.params.projectId)}
     const newValues = {
-        id: body.id,
+        _id: body._id,
         name: body.name,
         initDate: body.initDate,
         endDate: body.endDate,
-        company: body.company
+        companyId: body.companyId
     };
     connection((db) => {
         db.collection('projects')
@@ -114,7 +114,7 @@ router.put('/projects/:projectId', (req, res) => {
 
 /* DELETE project. */
 router.delete('/projects/:projectId', (req, res) => {
-    const query = {id: parseInt(req.params.projectId)};
+    const query = {_id: parseInt(req.params.projectId)};
     connection((db) => {
         db.collection('projects')
             .deleteOne(query, (err, r) => {
