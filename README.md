@@ -9,6 +9,8 @@ se corre el servidor (ExpressJS) con el comando `node server`.
 
 Se abrirá un 'endpoint' en la dirección http://localhost:3000
 
+Cualquier URL introducida que no sea un endpoint para la API será redirigido a la aplicación de Angular.
+
 ## API
 
 La aplicación presenta una API totalmente funcional hecha conforme al stack MEAN, usando como web server **ExpressJS** y como
