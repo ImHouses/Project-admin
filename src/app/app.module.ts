@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
+import { HttpModule } from '@angular/http';
 
 const routes: Routes = [
   { path: 'companies', component: CompaniesComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
     BrowserModule,
     MaterializeModule,
     FormsModule,
+    HttpModule,
     RouterModule.forRoot(routes)
   ],
   providers: [

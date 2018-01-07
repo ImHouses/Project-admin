@@ -8,12 +8,11 @@ import { Company } from '../models/company';
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
-  service: CompaniesService;
-  companies: Array<Company>;
+  companies: Array<any>;
 
-  constructor(service: CompaniesService) {
-    this.service = service;
-    this.companies = service.getCompanies();
+  constructor(private service: CompaniesService) {
+    this.service.getCompanies()
+      .subscribe(res => this.companies = res);
    }
 
   ngOnInit() {

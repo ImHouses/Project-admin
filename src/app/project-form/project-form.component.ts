@@ -13,7 +13,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class ProjectFormComponent implements OnInit {
   initDate: Date;
   endDate: Date;
-  companies: Array<Company>;
+  companies: Array<any>;
   currentCompany: Company;
   @Output() onProjectAdded = new EventEmitter<Project>();
   @Output() onFormHidden = new EventEmitter<Boolean>();
@@ -23,7 +23,11 @@ export class ProjectFormComponent implements OnInit {
 
   constructor(service: CompaniesService) {
     this.isFormShow = true;
-    this.companies = service.getCompanies().slice(0, 5);
+    service.getCompanies()
+      .subscribe(res =>  {
+        this.companies = res;
+        this.companies.slice(0, 5);
+      });
     this.currentCompany = new Company();
   }
 
