@@ -22,5 +22,6 @@ sistema manejador de bases de datos **MongoDB**.
 Los endpoints que tiene la API son los siguientes, usando como esta URL como base `http://localhost:3000/api/`.
 
 - `http://localhost:3000/api/companies` El cual mostrará como resultado un JSON con todas las empresas y los proyectos de cada una.
-- `http://localhost:3000/api/projects` El cual mostrará como resultado un JSON con todos los proyectos y la empresa de cada uno.
+- `http://localhost:3000/api/projects` El cual mostrará como resultado un JSON con todos los proyectos y la empresa de cada uno (**GET**). 
+Si se usa el método **POST** se añadirá un nuevo proyecto a la base de datos.
 - `http://localhost:3000/api/projects/:projectId` Este es un endpoint para los métodos **PUT** y **DELETE**, pudiendo eliminar o editar un proyecto.
