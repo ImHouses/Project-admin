@@ -12,7 +12,10 @@ export class CompaniesComponent implements OnInit {
 
   constructor(private service: CompaniesService) {
     this.service.getCompanies()
-      .subscribe(res => this.companies = res);
+      .subscribe(res => 
+        {this.companies = res;
+        console.log(this.companies);
+        });
    }
 
   ngOnInit() {

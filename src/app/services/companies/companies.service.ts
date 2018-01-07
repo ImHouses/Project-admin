@@ -12,7 +12,7 @@ export class CompaniesService {
 
   getCompanies() {
     return this.httpService.get("/api/companies")
-      .map(result => this.result = result.json().data);
+      .map((result) => this.result = result.json().data);
   }
 
 }

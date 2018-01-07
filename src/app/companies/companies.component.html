@@ -4,8 +4,17 @@
     <div class="collapsible-header">{{ company.name }} </div>
     <div class="collapsible-body">
       <p><b>Detalles de {{ company.name}}</b></p><br>
-      <span><b>ID: {{ company.id }} </b></span><br>
+      <span><b>ID: {{ company._id }} </b></span><br>
       <span><b>Dirección: </b></span> {{ company.address }}
+      <br>
+      <p><b>Proyectos de la empresa {{ company.name }}</b></p>
+      <ul>
+        <li *ngFor="let project of company.companyProjects">
+          <span><b>Nombre de proyecto: </b> </span> {{ project.name }}<br>
+          <span><b>Número de contrato: </b></span> {{ project._id }} <br>
+          <span><b>Fecha de inicio: </b> {{ project.initDate | date: 'fullDate'}} </span> <b>Fecha de finalización: </b> {{ project.endDate | date: 'fullDate'}}
+        </li>
+      </ul>
     </div>
   </li>
 </ul>
