@@ -8,17 +8,20 @@ import { Project } from '../models/project';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  projects: Array<Project>;
-  service: ProjectsService;
+  projects: Array<any>;
   newProject: Project;
   editProject: Project;
   isFormShow: boolean;
   isEditFormShown: boolean;
+  showStatus: boolean;
+  statusMessage: string;
 
-  constructor(service: ProjectsService) { 
-    this.projects = service.getProjects();
+  constructor(private service: ProjectsService) { 
+    this.service.getProjects()
+      .subscribe(res => this.projects = res);
     this.newProject = new Project();
     this.isFormShow = false;
+    this.showStatus = false;
     this.isEditFormShown = false;
   }
   
@@ -39,14 +42,28 @@ export class ProjectsComponent implements OnInit {
   }
 
   onProjectAdded(project: Project) {
-    this.projects.splice(0,0,project);
-    /* Then we add it to the DB. */
+    this.service.addProject(project)
+      .subscribe((res) => {
+        if(res.status == 200) {
+          this.projects.splice(0, 0, res.data[0]);
+        } else {
+          this.showStatus = true;
+          this.statusMessage = 'Ocurrió un error al guardar el proyecto.';
+        }
+      });
   }
 
   removeProject(project: Project, index: number) {
     if(window.confirm('¿Estás seguro de eliminar el proyecto?')) {
-      this.projects.splice(index, 1);
-      /* Then we delete it from the DB. */
+      this.service.deleteProject(project._id)
+        .subscribe((res) => {
+          if(res == 200) {
+            this.projects.splice(index, 1);
+          } else {
+            this.showStatus = true;
+            this.statusMessage = 'Ocurrió un error al eliminar el proyecto.';
+          }
+        });
     }
   }
 

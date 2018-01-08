@@ -7,7 +7,8 @@
       <span><b>ID: {{ company._id }} </b></span><br>
       <span><b>Dirección: </b></span> {{ company.address }}
       <br>
-      <p><b>Proyectos de la empresa {{ company.name }}</b></p>
+      <p><b>Pro
+        yectos de la empresa {{ company.name }}</b></p>
       <ul>
         <li *ngFor="let project of company.companyProjects">
           <span><b>Nombre de proyecto: </b> </span> {{ project.name }}<br>

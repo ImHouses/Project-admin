@@ -2,21 +2,33 @@ import { Injectable } from '@angular/core';
 
 import { Project } from '../../models/project';
 import { Company } from '../../models/company';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class ProjectsService {
-  projects: Project[] = [
-    { id: 1, name: 'Proyecto 1', initDate: new Date(2017, 1, 1), endDate: new Date(2018, 1, 1), company: new Company(1, 'Company 1', 'Nowhere, CA')}
-  ];
 
-  getProjects(): Array<Project> {
-    return this.projects;
+  result: any;
+  
+  constructor(private httpService: Http) { }
+  
+  getProjects() {
+    return this.httpService.get('/api/projects')
+      .map((result) => this.result = result.json().data);
   }
   
   addProject(project: Project) {
-    this.projects.splice(0,0,project);
+    return this.httpService.post('/api/projects', project)
+      .map((result) => this.result = result.json());
   }
 
-  constructor() { }
+  editProject(project: Project) {
+    return this.httpService.put('api/projects/' + project._id, project)
+      .map((result) => this.result = result.json());
+  }
+
+  deleteProject(projectId: number) {
+    return this.httpService.delete('/api/projects/' + projectId)
+      .map((result) => this.result = result.json().status);
+  }
 
 }

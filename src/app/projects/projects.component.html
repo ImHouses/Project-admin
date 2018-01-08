@@ -5,13 +5,14 @@
   </div>
   <div class="btn-floating btn-large waves-effect waves-light red" (click)="showEditProjectForm()">
     <i class="material-icons">edit</i>
-
   </div>
+  <app-status *ngIf="showStatus" [message]="statusMessage"></app-status>
   <app-project-form 
     (onProjectAdded)="onProjectAdded($event)" 
     [project]="newProject" 
     [isFormShow]="isFormShow"
     [title]="'Nuevo Proyecto'"
+    [edit]="false"
     (onFormHidden)="onFormHidden($event)"></app-project-form>
 </div>
 
@@ -19,17 +20,18 @@
   <li *ngFor="let project of projects; let i = index">
      <div class="collapsible-header">{{ project.name }} </div>
      <div class="collapsible-body">
-        <span><b>Número de contrato: </b></span> {{ project.id }}<br>
+        <span><b>Número de contrato: </b></span> {{ project._id }}<br>
         <span><b>Nombre del proyecto: </b></span> {{ project.name }}<br>
         <span><b>Fecha de inicio: </b></span> {{ project.initDate | date: 'fullDate'}}<br> 
         <span><b>Fecha de finalización: </b></span> {{ project.endDate | date: 'fullDate'}}<br>
-        <span><b>Empresa: </b></span> {{ project.company.name }}
+        <span><b>Empresa: </b></span> {{ project.projectCompany[0].name }}
        </div>
       <button class="btn" type="submit" (click)="removeProject(project, i)">Eliminar</button>
       <app-project-form
         [project]="project"
         [isFormShow]="isEditFormShown"
         [title]="'Editar proyecto'"
+        [edit]="true"
         (onFormHidden)="onFormHidden($event)"
       ></app-project-form>
   </li>

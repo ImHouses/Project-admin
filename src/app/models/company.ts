@@ -1,10 +1,10 @@
 export class Company {
-    id: number;
+    _id: number;
     name: string;
     address: string;
 
-    constructor(id?: number, name?: string, address?: string) {
-        this.id = id;
+    constructor(_id?: number, name?: string, address?: string) {
+        this._id = _id;
         this.name = name;
         this.address = address;
     }

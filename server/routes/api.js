@@ -106,7 +106,6 @@ router.put('/projects/:projectId', (req, res) => {
                 response.message = 'PUT project sucessful';
                 response.result = r.result;
                 response.data = [];
-                console.log('PUT LOG: \n' + r);
                 res.json(response);
             });
     });
