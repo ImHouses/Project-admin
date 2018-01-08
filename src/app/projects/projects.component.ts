@@ -17,8 +17,7 @@ export class ProjectsComponent implements OnInit {
   statusMessage: string;
 
   constructor(private service: ProjectsService) { 
-    this.service.getProjects()
-      .subscribe(res => this.projects = res);
+    this.getProjects();
     this.newProject = new Project();
     this.isFormShow = false;
     this.showStatus = false;
@@ -45,12 +44,17 @@ export class ProjectsComponent implements OnInit {
     this.service.addProject(project)
       .subscribe((res) => {
         if(res.status == 200) {
-          this.projects.splice(0, 0, res.data[0]);
+          this.getProjects();
         } else {
           this.showStatus = true;
           this.statusMessage = 'Ocurrió un error al guardar el proyecto.';
         }
       });
+  }
+
+  private getProjects() {
+    this.service.getProjects()
+      .subscribe(res => this.projects = res);
   }
 
   removeProject(project: Project, index: number) {
